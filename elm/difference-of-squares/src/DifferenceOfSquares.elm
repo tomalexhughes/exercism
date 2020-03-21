@@ -1,16 +1,23 @@
 module DifferenceOfSquares exposing (difference, squareOfSum, sumOfSquares)
 
+import List
+
 
 squareOfSum : Int -> Int
 squareOfSum n =
-    Debug.todo "Please implement this function"
+    List.range 1 n |> List.sum |> square
 
 
 sumOfSquares : Int -> Int
 sumOfSquares n =
-    Debug.todo "Please implement this function"
+    List.range 1 n |> List.map square |> List.sum
 
 
 difference : Int -> Int
 difference n =
-    Debug.todo "Please implement this function"
+    squareOfSum n - sumOfSquares n
+
+
+square : Int -> Int
+square n =
+    n * n
