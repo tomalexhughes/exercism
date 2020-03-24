@@ -10,4 +10,7 @@ gigaSecond =
 
 add : Time.Posix -> Time.Posix
 add timestamp =
-    Time.millisToPosix (Time.posixToMillis timestamp + (gigaSecond * 1000))
+    timestamp
+        |> Time.posixToMillis
+        |> (+) (gigaSecond * 1000)
+        |> Time.millisToPosix
