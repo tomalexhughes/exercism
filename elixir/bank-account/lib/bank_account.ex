@@ -3,7 +3,7 @@ defmodule BankAccount do
   A bank account that supports access from multiple processes.
   """
 
-  use GenServer
+  @server BankAccount.Server
 
   @typedoc """
   An account handle.
@@ -15,7 +15,7 @@ defmodule BankAccount do
   """
   @spec open_bank() :: account
   def open_bank() do
-    {:ok, account} = GenServer.start_link(__MODULE__, 0)
+    {:ok, account} = GenServer.start_link(@server, 0)
     account
   end
 
@@ -60,22 +60,5 @@ defmodule BankAccount do
   """
   defp account_closed do
     {:error, :account_closed}
-  end
-
-  # Server (callbacks)
-  @impl true
-  def init(value) do
-    {:ok, value}
-  end
-
-  # @impl true
-  def handle_call(:get_balance, _from, state) do
-    {:reply, state, state}
-  end
-
-  # @impl true
-  def handle_call({:update_balance, value}, _from, state) do
-    updated_balance = value + state
-    {:reply, updated_balance, updated_balance}
   end
 end
