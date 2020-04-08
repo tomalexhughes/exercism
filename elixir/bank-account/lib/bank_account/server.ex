@@ -1,4 +1,8 @@
 defmodule BankAccount.Server do
+  @moduledoc """
+  GenServer callbacks for BankAccount module
+  """
+
   use GenServer
   alias BankAccount.Impl
 
