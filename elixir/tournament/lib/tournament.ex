@@ -1,4 +1,7 @@
 defmodule Tournament do
+  @type score :: %{wins: integer(), draws: integer(), losses: integer()}
+  @type score_field :: :wins | :losses | :draws
+
   @moduledoc """
   Outputs a table of results given a set of games.
   """
@@ -42,7 +45,8 @@ defmodule Tournament do
     )
   end
 
-  defp convert_games_data_structure(games) do
+  @spec convert_games_data_structure([String.t()]) :: %{team_name: score()}
+  defp(convert_games_data_structure(games)) do
     Enum.reduce(games, %{}, fn game, acc ->
       case game do
         [team_a, team_b, "win"] ->
@@ -66,22 +70,40 @@ defmodule Tournament do
     end)
   end
 
-  defp update_results(results, team, outcome) do
+  @spec update_results([score], String.t(), score_field()) :: {score, score}
+  defp update_results(results, team, result_type) do
     {_get, map} =
       Map.get_and_update(results, team, fn map ->
         case map do
-          nil -> {map, increment_result(@initial_results, outcome)}
-          _ -> {map, increment_result(map, outcome)}
+          nil -> {map, increment_result(@initial_results, result_type)}
+          _ -> {map, increment_result(map, result_type)}
         end
       end)
 
     map
   end
 
-  defp increment_result(current_team_results, outcome) do
-    Map.update!(current_team_results, outcome, &(&1 + 1))
+  @spec increment_result(
+          score(),
+          score_field()
+        ) ::
+          score_field()
+  defp increment_result(current_team_results, result_type) do
+    Map.update!(current_team_results, result_type, &(&1 + 1))
   end
 
+  @spec add_meta_data({
+          String.t(),
+          score()
+        }) ::
+          %{
+            team_name: String.t(),
+            wins: String.t(),
+            losses: String.t(),
+            draws: String.t(),
+            points: String.t(),
+            matches_played: String.t()
+          }
   defp add_meta_data({team_name, %{wins: wins, losses: losses, draws: draws}}) do
     points = wins * 3 + draws
     matches_played = wins + draws + losses
