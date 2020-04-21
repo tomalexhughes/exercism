@@ -23,8 +23,7 @@ defmodule Tournament do
       |> Enum.map(&String.split(&1, ";"))
       |> convert_games_data_structure()
       |> Enum.map(&add_meta_data(&1))
-      |> Enum.sort_by(&Map.fetch(&1, :points))
-      |> Enum.reverse()
+      |> Enum.sort_by(&Map.fetch(&1, :points), &Kernel.>=/2)
 
     Tablify.display(
       [
@@ -52,10 +51,13 @@ defmodule Tournament do
           |> update_results(team_a, :losses)
           |> update_results(team_b, :wins)
 
-        [team_a, team_b, _result] ->
+        [team_a, team_b, "draw"] ->
           acc
           |> update_results(team_a, :draws)
           |> update_results(team_b, :draws)
+
+        _ ->
+          acc
       end
     end)
   end
@@ -119,6 +121,7 @@ defmodule Tablify do
         {{_, key}, 0} -> String.pad_trailing(Map.get(map, key), 30)
         {{_, key}, _} -> String.pad_leading(Map.get(map, key), 2)
       end)
+      |> Enum.join(" | ")
     end)
   end
 end
