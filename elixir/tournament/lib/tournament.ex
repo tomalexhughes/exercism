@@ -63,7 +63,7 @@ defmodule Tournament do
   end
 
   defp update_results(results, team, outcome) do
-    {get, map} =
+    {_get, map} =
       Map.get_and_update(results, team, fn map ->
         case map do
           nil -> {map, increment_result(@initial_results, outcome)}
@@ -99,15 +99,15 @@ defmodule Tablify do
   """
 
   def display(headers, data) do
-    Enum.concat([generate_header_row(headers)], generate_row(headers, data)) |> Enum.join("\n")
+    [generate_row(headers) | generate_row(headers, data)] |> Enum.join("\n")
   end
 
-  defp generate_header_row(fields) do
-    fields
+  defp generate_row(headers) do
+    headers
     |> Enum.with_index()
     |> Enum.map(fn
-      {{title, _}, 0} -> String.pad_trailing("#{title}", 30)
-      {{title, _}, _} -> String.pad_leading("#{title}", 2)
+      {{title, _}, 0} -> pad_initial_column(title)
+      {{title, _}, _} -> pad_standard_column(title)
     end)
     |> Enum.join(" | ")
   end
@@ -118,10 +118,18 @@ defmodule Tablify do
       headers
       |> Enum.with_index()
       |> Enum.map(fn
-        {{_, key}, 0} -> String.pad_trailing(Map.get(map, key), 30)
-        {{_, key}, _} -> String.pad_leading(Map.get(map, key), 2)
+        {{_, key}, 0} -> pad_initial_column(Map.get(map, key))
+        {{_, key}, _} -> pad_standard_column(Map.get(map, key))
       end)
       |> Enum.join(" | ")
     end)
+  end
+
+  defp pad_initial_column(string) do
+    String.pad_trailing(string, 30)
+  end
+
+  defp pad_standard_column(string) do
+    String.pad_leading(string, 2)
   end
 end
