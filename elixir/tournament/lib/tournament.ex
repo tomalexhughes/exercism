@@ -18,9 +18,29 @@ defmodule Tournament do
   """
   @spec tally(input :: list(String.t())) :: String.t()
   def tally(input) do
-    input
-    |> Enum.map(&String.split(&1, ";"))
-    |> Enum.reduce(%{}, fn game, acc ->
+    table_data =
+      input
+      |> Enum.map(&String.split(&1, ";"))
+      |> convert_games_data_structure()
+      |> Enum.map(&add_meta_data(&1))
+      |> Enum.sort_by(&Map.fetch(&1, :points))
+      |> Enum.reverse()
+
+    Tablify.display(
+      [
+        {"Team", :team_name},
+        {"MP", :matches_played},
+        {"W", :wins},
+        {"D", :draws},
+        {"L", :losses},
+        {"P", :points}
+      ],
+      table_data
+    )
+  end
+
+  defp convert_games_data_structure(games) do
+    Enum.reduce(games, %{}, fn game, acc ->
       case game do
         [team_a, team_b, "win"] ->
           acc
@@ -42,5 +62,51 @@ defmodule Tournament do
 
   defp increment_result(current_team_results, outcome) do
     Map.update!(current_team_results, outcome, &(&1 + 1))
+  end
+
+  defp add_meta_data({team_name, %{wins: wins, losses: losses, draws: draws}}) do
+    points = wins * 3 + draws
+    matches_played = wins + draws + losses
+
+    %{
+      team_name: team_name,
+      wins: Integer.to_string(wins),
+      losses: Integer.to_string(losses),
+      draws: Integer.to_string(draws),
+      points: Integer.to_string(points),
+      matches_played: Integer.to_string(matches_played)
+    }
+  end
+end
+
+defmodule Tablify do
+  @moduledoc """
+  Generic module for outputting tabular data when provided with headers and data.
+  """
+
+  def display(headers, data) do
+    Enum.concat([generate_header_row(headers)], generate_row(headers, data)) |> Enum.join("\n")
+  end
+
+  defp generate_header_row(fields) do
+    fields
+    |> Enum.with_index()
+    |> Enum.map(fn
+      {{title, _}, 0} -> String.pad_trailing("#{title}", 30)
+      {{title, _}, _} -> String.pad_leading("#{title}", 2)
+    end)
+    |> Enum.join(" | ")
+  end
+
+  defp generate_row(headers, data) do
+    data
+    |> Enum.map(fn map ->
+      headers
+      |> Enum.with_index()
+      |> Enum.map(fn
+        {{_, key}, 0} -> String.pad_trailing(Map.get(map, key), 30)
+        {{_, key}, _} -> String.pad_leading(Map.get(map, key), 2)
+      end)
+    end)
   end
 end
