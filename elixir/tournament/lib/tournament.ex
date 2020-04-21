@@ -44,20 +44,32 @@ defmodule Tournament do
       case game do
         [team_a, team_b, "win"] ->
           acc
-          |> Map.update(team_a, @initial_results, &increment_result(&1, :wins))
-          |> Map.update(team_b, @initial_results, &increment_result(&1, :losses))
+          |> update_results(team_a, :wins)
+          |> update_results(team_b, :losses)
 
         [team_a, team_b, "loss"] ->
           acc
-          |> Map.update(team_a, @initial_results, &increment_result(&1, :losses))
-          |> Map.update(team_b, @initial_results, &increment_result(&1, :wins))
+          |> update_results(team_a, :losses)
+          |> update_results(team_b, :wins)
 
         [team_a, team_b, _result] ->
           acc
-          |> Map.update(team_a, @initial_results, &increment_result(&1, :draws))
-          |> Map.update(team_b, @initial_results, &increment_result(&1, :draws))
+          |> update_results(team_a, :draws)
+          |> update_results(team_b, :draws)
       end
     end)
+  end
+
+  defp update_results(results, team, outcome) do
+    {get, map} =
+      Map.get_and_update(results, team, fn map ->
+        case map do
+          nil -> {map, increment_result(@initial_results, outcome)}
+          _ -> {map, increment_result(map, outcome)}
+        end
+      end)
+
+    map
   end
 
   defp increment_result(current_team_results, outcome) do
