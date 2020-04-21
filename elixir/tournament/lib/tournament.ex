@@ -1,4 +1,8 @@
 defmodule Tournament do
+  @moduledoc """
+  Outputs a table of results given a set of games.
+  """
+
   @initial_results %{
     wins: 0,
     losses: 0,
