@@ -2,6 +2,6 @@ class Hamming
   def self.compute(a, b)
     raise ArgumentError if a.length != b.length
 
-    a.chars.map.with_index { |ch, idx| ch != b.chars[idx] }.filter { |bool| bool }.length
+    a.chars.zip(b.chars).count { |x, y| x != y }
   end
 end
