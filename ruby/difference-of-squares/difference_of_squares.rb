@@ -6,11 +6,11 @@ class Squares
   end
 
   def square_of_sum
-    range.sum**2
+    range.sum.abs2
   end
 
   def sum_of_squares
-    range.map { |val| val**2 }.sum
+    range.sum(&:abs2)
   end
 
   def difference
