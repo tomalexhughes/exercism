@@ -13,8 +13,8 @@ defmodule Diamond do
 
     upper_half =
       range
-      |> Stream.with_index()
-      |> Stream.map(fn {letter, index} ->
+      |> Enum.with_index()
+      |> Enum.map(fn {letter, index} ->
         current_letter_number = index + 1
         outside_spaces_amount = letter_number - current_letter_number
         inside_spaces_amount = line_length - 2 - outside_spaces_amount * 2
@@ -27,7 +27,6 @@ defmodule Diamond do
 
         "#{outside_spaces}#{inner_string}#{outside_spaces}\n"
       end)
-      |> Enum.to_list()
 
     bottom_half = Enum.drop(upper_half, -1) |> Enum.reverse()
     [upper_half | bottom_half] |> Enum.join("")

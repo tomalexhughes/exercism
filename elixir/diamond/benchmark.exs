@@ -2,12 +2,12 @@
 # Benchmarking Z...
 
 # Name           ips        average  deviation         median         99th %
-# A         310.09 K        3.22 μs   ±665.62%           2 μs          11 μs
-# Z          21.01 K       47.61 μs    ±70.80%          37 μs         201 μs
+# A         571.42 K        1.75 μs  ±1586.51%        0.90 μs        4.90 μs
+# Z          24.04 K       41.60 μs   ±134.03%       28.90 μs      331.90 μs
 
 # Comparison:
-# A         310.09 K
-# Z          21.01 K - 14.76x slower +44.38 μs
+# A         571.42 K
+# Z          24.04 K - 23.77x slower +39.85 μs
 
 Benchee.run(%{
   "A" => fn -> Diamond.build_shape(?A) end,
