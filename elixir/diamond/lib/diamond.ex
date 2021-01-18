@@ -8,14 +8,13 @@ defmodule Diamond do
 
   def build_shape(letter) do
     range = Enum.to_list(?A..letter)
-    letter_number = Enum.find_index(range, fn char -> char == letter end) + 1
+    letter_number = letter - ?A + 1
     line_length = letter_number * 2 - 1
 
     upper_half =
       range
-      |> Enum.with_index()
-      |> Enum.map(fn {letter, index} ->
-        current_letter_number = index + 1
+      |> Enum.map(fn letter ->
+        current_letter_number = letter - ?A + 1
         outside_spaces_amount = letter_number - current_letter_number
         inside_spaces_amount = line_length - 2 - outside_spaces_amount * 2
         inside_spaces_amount = if inside_spaces_amount >= 0, do: inside_spaces_amount, else: 0
