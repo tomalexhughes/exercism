@@ -1,55 +1,28 @@
 defmodule TwelveDays do
+  @days_gifts %{
+    1 => {"first", "a Partridge in a Pear Tree"},
+    2 => {"second", "two Turtle Doves"},
+    3 => {"third", "three French Hens"},
+    4 => {"fourth", "four Calling Birds"},
+    5 => {"fifth", "five Gold Rings"},
+    6 => {"sixth", "six Geese-a-Laying"},
+    7 => {"seventh", "seven Swans-a-Swimming"},
+    8 => {"eighth", "eight Maids-a-Milking"},
+    9 => {"ninth", "nine Ladies Dancing"},
+    10 => {"tenth", "ten Lords-a-Leaping"},
+    11 => {"eleventh", "eleven Pipers Piping"},
+    12 => {"twelfth", "twelve Drummers Drumming"}
+  }
+
   @doc """
   Given a `number`, return the song's verse for that specific day, including
   all gifts for previous days in the same line.
   """
   @spec verse(number :: integer) :: String.t()
-  def verse(12),
-    do:
-      "On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-
-  def verse(11),
-    do:
-      "On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-
-  def verse(10),
-    do:
-      "On the tenth day of Christmas my true love gave to me: ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-
-  def verse(9),
-    do:
-      "On the ninth day of Christmas my true love gave to me: nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-
-  def verse(8),
-    do:
-      "On the eighth day of Christmas my true love gave to me: eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-
-  def verse(7),
-    do:
-      "On the seventh day of Christmas my true love gave to me: seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-
-  def verse(6),
-    do:
-      "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-
-  def verse(5),
-    do:
-      "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-
-  def verse(4),
-    do:
-      "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-
-  def verse(3),
-    do:
-      "On the third day of Christmas my true love gave to me: three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-
-  def verse(2),
-    do:
-      "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree."
-
-  def verse(1),
-    do: "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree."
+  def verse(number) do
+    day = elem(@days_gifts[number], 0)
+    "On the #{day} day of Christmas my true love gave to me: #{gifts(number)}."
+  end
 
   @doc """
   Given a `starting_verse` and an `ending_verse`, return the verses for each
@@ -67,4 +40,12 @@ defmodule TwelveDays do
   def sing do
     verses(1, 12)
   end
+
+  defp gifts_phrase_for_day(1), do: elem(@days_gifts[1], 1)
+
+  defp gifts_phrase_for_day(day),
+    do:
+      ["and #{gifts(1)}" | 2..day |> Enum.map(fn day -> elem(@days_gifts[day], 1) end)]
+      |> Enum.reverse()
+      |> Enum.join(", ")
 end
