@@ -4,8 +4,52 @@ defmodule TwelveDays do
   all gifts for previous days in the same line.
   """
   @spec verse(number :: integer) :: String.t()
-  def verse(number) do
-  end
+  def verse(12),
+    do:
+      "On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+  def verse(11),
+    do:
+      "On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+  def verse(10),
+    do:
+      "On the tenth day of Christmas my true love gave to me: ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+  def verse(9),
+    do:
+      "On the ninth day of Christmas my true love gave to me: nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+  def verse(8),
+    do:
+      "On the eighth day of Christmas my true love gave to me: eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+  def verse(7),
+    do:
+      "On the seventh day of Christmas my true love gave to me: seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+  def verse(6),
+    do:
+      "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+  def verse(5),
+    do:
+      "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+  def verse(4),
+    do:
+      "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+  def verse(3),
+    do:
+      "On the third day of Christmas my true love gave to me: three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+  def verse(2),
+    do:
+      "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree."
+
+  def verse(1),
+    do: "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree."
 
   @doc """
   Given a `starting_verse` and an `ending_verse`, return the verses for each
@@ -13,6 +57,7 @@ defmodule TwelveDays do
   """
   @spec verses(starting_verse :: integer, ending_verse :: integer) :: String.t()
   def verses(starting_verse, ending_verse) do
+    starting_verse..ending_verse |> Enum.map(fn number -> verse(number) end) |> Enum.join("\n")
   end
 
   @doc """
@@ -20,5 +65,6 @@ defmodule TwelveDays do
   """
   @spec sing() :: String.t()
   def sing do
+    verses(1, 12)
   end
 end
