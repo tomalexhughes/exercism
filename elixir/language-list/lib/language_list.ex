@@ -13,14 +13,15 @@ defmodule LanguageList do
   end
 
   def first(list) do
-    Enum.at(list, 0)
+    [first | _rest] = list
+    first
   end
 
   def count(list) do
-    Enum.count(list)
+    length(list)
   end
 
   def functional_list?(list) do
-    Enum.member?(list, "Elixir")
+    "Elixir" in list
   end
 end
