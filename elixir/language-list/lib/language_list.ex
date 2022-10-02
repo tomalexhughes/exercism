@@ -13,8 +13,7 @@ defmodule LanguageList do
   end
 
   def first(list) do
-    [first | _rest] = list
-    first
+    List.first(list)
   end
 
   def count(list) do
