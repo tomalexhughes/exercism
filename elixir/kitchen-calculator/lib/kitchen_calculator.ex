@@ -1,17 +1,32 @@
 defmodule KitchenCalculator do
-  def get_volume(volume_pair) do
-    # Please implement the get_volume/1 function
+  @volume_mls %{
+    :cup => 240,
+    :fluid_ounce => 30,
+    :teaspoon => 5,
+    :tablespoon => 15,
+    :milliliter => 1
+  }
+
+  def get_volume({_name, volume}) do
+    volume
   end
 
-  def to_milliliter(volume_pair) do
-    # Please implement the to_milliliter/1 functions
+  # The exercise asks for multiple function clauses with pattern matching
+  # however this seems neater
+  def to_milliliter({name, volume}) do
+    {_, volume_mls} = Map.fetch(@volume_mls, name)
+    {:milliliter, volume * volume_mls}
   end
 
-  def from_milliliter(volume_pair, unit) do
-    # Please implement the from_milliliter/2 functions
+  # Just like `to_milliliter` - we have used a single function clause here
+  def from_milliliter({_name, volume}, unit) do
+    {_, volume_mls} = Map.fetch(@volume_mls, unit)
+    {unit, volume / volume_mls}
   end
 
   def convert(volume_pair, unit) do
-    # Please implement the convert/2 function
+    volume_pair
+    |> to_milliliter()
+    |> from_milliliter(unit)
   end
 end
