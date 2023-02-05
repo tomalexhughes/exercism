@@ -1,5 +1,10 @@
 # Grains
 
+Welcome to Grains on Exercism's Elm Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Calculate the number of grains of wheat on a chessboard given that the number
 on each square doubles.
 
@@ -26,36 +31,18 @@ are some additional things you could try:
 Then please share your thoughts in a comment on the submission. Did this
 experiment make the code better? Worse? Did you learn anything from it?
 
-## Elm Installation
-
-Refer to the [Installing Elm](https://exercism.io/tracks/elm/installation) page
-for information about installing elm.
-
-## Writing the Code
-
-The code you have to write is located inside the `src/` directory of the exercise.
-Elm automatically installs packages dependencies the first time you run the tests
-so we can start by running the tests from the exercise directory with:
-
-```bash
-$ elm-test
-```
-
-To automatically run tests again when you save changes:
-
-```bash
-$ elm-test --watch
-```
-
-As you work your way through the tests suite in the file `tests/Tests.elm`,
-be sure to remove the `skip <|`
-calls from each test until you get them all passing!
-
 ## Source
 
-JavaRanch Cattle Drive, exercise 6 [http://www.javaranch.com/grains.jsp](http://www.javaranch.com/grains.jsp)
+### Created by
 
-## Submitting Incomplete Solutions
+- @ErikSchierboom
 
-It is possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+### Contributed to by
+
+- @nathanielknight
+- @tgecho
+- @tuxagon
+
+### Based on
+
+JavaRanch Cattle Drive, exercise 6 - http://www.javaranch.com/grains.jsp
