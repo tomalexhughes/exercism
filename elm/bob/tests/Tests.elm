@@ -44,17 +44,17 @@ tests =
             \() ->
                 Expect.equal
                     "Whatever."
-                    (Bob.hey "Let's go make out behind the gym!")
+                    (Bob.hey "Hi there!")
         , test "using acronyms in regular speech" <|
             \() ->
                 Expect.equal
                     "Whatever."
-                    (Bob.hey "It's OK if you don't want to go to the DMV.")
+                    (Bob.hey "It's OK if you don't want to go work for NASA.")
         , test "forceful questions" <|
             \() ->
                 Expect.equal
                     "Calm down, I know what I'm doing!"
-                    (Bob.hey "WHAT THE HELL WERE YOU THINKING?")
+                    (Bob.hey "WHAT'S GOING ON?")
         , test "shouting numbers" <|
             \() ->
                 Expect.equal
@@ -79,7 +79,7 @@ tests =
             \() ->
                 Expect.equal
                     "Whoa, chill out!"
-                    (Bob.hey "I HATE YOU")
+                    (Bob.hey "I HATE THE DENTIST")
         , test "statement containing a question mark" <|
             \() ->
                 Expect.equal
