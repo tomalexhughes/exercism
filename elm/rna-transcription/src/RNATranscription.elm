@@ -2,7 +2,7 @@ module RNATranscription exposing (toRNA)
 
 
 toRNA : String -> Result String String
-toRNA dna =
+toRNA =
     let
         rnaNucleotide dnaNucleotide =
             case dnaNucleotide of
@@ -28,4 +28,4 @@ toRNA dna =
             else
                 Ok rna
     in
-    (String.map rnaNucleotide >> validateRnaStrand) dna
+    String.map rnaNucleotide >> validateRnaStrand
