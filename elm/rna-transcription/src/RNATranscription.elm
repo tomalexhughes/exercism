@@ -28,6 +28,4 @@ toRNA dna =
             else
                 Ok rna
     in
-    dna
-        |> String.map rnaNucleotide
-        |> validateRnaStrand
+    (String.map rnaNucleotide >> validateRnaStrand) dna
