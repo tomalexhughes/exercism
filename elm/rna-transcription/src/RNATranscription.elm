@@ -20,5 +20,14 @@ toRNA dna =
 
                 _ ->
                     '_'
+
+        validateRnaStrand rna =
+            if String.contains "_" rna then
+                Err '_'
+
+            else
+                Ok rna
     in
-    Ok (String.map rnaNucleotide dna)
+    dna
+        |> String.map rnaNucleotide
+        |> validateRnaStrand
