@@ -1,7 +1,7 @@
 module RNATranscription exposing (toRNA)
 
 
-toRNA : String -> Result Char String
+toRNA : String -> Result String String
 toRNA dna =
     let
         rnaNucleotide dnaNucleotide =
@@ -23,7 +23,7 @@ toRNA dna =
 
         validateRnaStrand rna =
             if String.contains "_" rna then
-                Err '_'
+                Err "Invalid character in DNA strand"
 
             else
                 Ok rna
