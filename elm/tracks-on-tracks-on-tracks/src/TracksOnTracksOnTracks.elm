@@ -1,31 +1,49 @@
 module TracksOnTracksOnTracks exposing (..)
 
+import Array
+
 
 newList : List String
 newList =
-    Debug.todo "implement this function"
+    []
 
 
 existingList : List String
 existingList =
-    Debug.todo "implement this function"
+    [ "Elm", "Clojure", "Haskell" ]
 
 
 addLanguage : String -> List String -> List String
 addLanguage language languages =
-    Debug.todo "implement this function"
+    language :: languages
 
 
 countLanguages : List String -> Int
 countLanguages languages =
-    Debug.todo "implement this function"
+    List.length languages
 
 
 reverseList : List String -> List String
 reverseList languages =
-    Debug.todo "implement this function"
+    List.reverse languages
 
 
 excitingList : List String -> Bool
 excitingList languages =
-    Debug.todo "implement this function"
+    let
+        languagesArray =
+            Array.fromList languages
+
+        isFirstInList =
+            Array.get 0 languagesArray == Just "Elm"
+
+        isSecondInList =
+            Array.get 1 languagesArray == Just "Elm"
+
+        isShortList =
+            List.length languages <= 3
+
+        isExciting =
+            isFirstInList || (isSecondInList && isShortList)
+    in
+    isExciting
