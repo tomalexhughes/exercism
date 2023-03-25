@@ -4,14 +4,14 @@ class LogLineParser
   end
 
   def message
-    raise 'Please implement the LogLineParser#message method'
+    @line.partition(': ').last.strip
   end
 
   def log_level
-    raise 'Please implement the LogLineParser#log_level method'
+    @line.split('[').last.split(']').first.downcase
   end
 
   def reformat
-    raise 'Please implement the LogLineParser#reformat method'
+    "#{message} (#{log_level})"
   end
 end
