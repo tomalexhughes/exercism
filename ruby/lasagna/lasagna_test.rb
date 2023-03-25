@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 require 'minitest/autorun'
+require 'minitest/reporters'
 require_relative 'lasagna'
+
+Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(:color => true)]
 
 class LasagnaTest < Minitest::Test
   def test_expected_minutes_in_oven
