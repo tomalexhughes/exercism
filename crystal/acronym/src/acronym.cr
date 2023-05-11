@@ -1,5 +1,8 @@
 module Acronym
   def self.abbreviate(phrase : String) : String
-    # Write your code for the 'Acronym' exercise in this file.
+    phrase.split(/[\s\-_]/, remove_empty: true)
+      .map(&.chars.first)
+      .join
+      .upcase
   end
 end
