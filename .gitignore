@@ -180,3 +180,6 @@ dmypy.json
 .pyre/
 .pytype/
 cython_debug/
+python/bin
+python/lib
+pyvenv.cfg
