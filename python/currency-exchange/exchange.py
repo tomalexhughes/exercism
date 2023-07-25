@@ -39,7 +39,7 @@ def get_number_of_bills(budget, denomination):
     :return: int - number of bills after exchanging all your money.
     """
 
-    return int (budget / denomination)
+    return budget // denomination
 
 
 def get_leftover_of_bills(budget, denomination):
