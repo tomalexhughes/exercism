@@ -1,6 +1,5 @@
-import org.junit.Test
-import org.junit.Ignore
 import kotlin.test.assertEquals
+import org.junit.Test
 
 class SquaresTest {
 
@@ -48,5 +47,4 @@ class SquaresTest {
     fun differenceOfSquares100() {
         assertEquals(25164150, Squares(100).difference())
     }
-
 }
