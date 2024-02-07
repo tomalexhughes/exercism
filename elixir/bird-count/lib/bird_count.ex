@@ -9,12 +9,10 @@ defmodule BirdCount do
   def has_day_without_birds?([]), do: false
   def has_day_without_birds?([_head | tail]), do: has_day_without_birds?(tail)
 
-  def total(list, total \\ 0)
-  def total([], total), do: total
-  def total([head | tail], total), do: total(tail, total + head)
+  def total([]), do: 0
+  def total([head | tail]), do: head + total(tail)
 
-  def busy_days(list, count \\ 0)
-  def busy_days([], count), do: count
-  def busy_days([head | tail], count) when head >= 5, do: busy_days(tail, count + 1)
-  def busy_days([_head | tail], count), do: busy_days(tail, count)
+  def busy_days([]), do: 0
+  def busy_days([head | tail]) when head < 5, do: busy_days(tail)
+  def busy_days([_head | tail]), do: 1 + busy_days(tail)
 end
