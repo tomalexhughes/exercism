@@ -22,16 +22,8 @@ defmodule Frequency do
   end
 
   defp count_letters(graphemes) do
-    Enum.reduce(graphemes, %{}, fn grapheme, acc ->
-      cond do
-        String.match?(grapheme, @unicode_character) ->
-          downcased_letter = String.downcase(grapheme)
-          Map.update(acc, downcased_letter, 1, fn count -> count + 1 end)
-
-        true ->
-          acc
-      end
-    end)
+    Enum.filter(graphemes, &Regex.match?(@unicode_character, &1))
+    |> Enum.frequencies_by(&String.downcase/1)
   end
 
   defp merge_results_stream(results_stream) do
