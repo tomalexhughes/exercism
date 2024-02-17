@@ -1,5 +1,10 @@
 # Triangle
 
+Welcome to Triangle on Exercism's Elixir Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Determine if a triangle is equilateral, isosceles, or scalene.
 
 An _equilateral_ triangle has all three sides the same length.
@@ -22,44 +27,28 @@ The case where the sum of the lengths of two sides _equals_ that of the
 third is known as a _degenerate_ triangle - it has zero area and looks like
 a single line. Feel free to add your own code/tests to check for degenerate triangles.
 
-## Running tests
-
-Execute the tests with:
-
-```bash
-$ mix test
-```
-
-### Pending tests
-
-In the test suites, all but the first test have been skipped.
-
-Once you get a test passing, you can unskip the next one by
-commenting out the relevant `@tag :pending` with a `#` symbol.
-
-For example:
-
-```elixir
-# @tag :pending
-test "shouting" do
-  assert Bob.hey("WATCH OUT!") == "Whoa, chill out!"
-end
-```
-
-Or, you can enable all the tests by commenting out the
-`ExUnit.configure` line in the test suite.
-
-```elixir
-# ExUnit.configure exclude: :pending, trace: true
-```
-
-If you're stuck on something, it may help to look at some of
-the [available resources](https://exercism.io/tracks/elixir/resources)
-out there where answers might be found.
-
 ## Source
 
-The Ruby Koans triangle project, parts 1 & 2 [http://rubykoans.com](http://rubykoans.com)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @rubysolo
+
+### Contributed to by
+
+- @andrewsardone
+- @angelikatyborska
+- @Cohen-Carlisle
+- @dalexj
+- @devonestes
+- @jinyeow
+- @lpil
+- @neenjaw
+- @parkerl
+- @ryanzidago
+- @sotojuan
+- @Teapane
+- @waiting-for-dev
+
+### Based on
+
+The Ruby Koans triangle project, parts 1 & 2 - http://rubykoans.com
