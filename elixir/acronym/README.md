@@ -1,50 +1,49 @@
 # Acronym
 
+Welcome to Acronym on Exercism's Elixir Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Convert a phrase to its acronym.
 
 Techies love their TLA (Three Letter Acronyms)!
 
-Help generate some jargon by writing a program that converts a long name
-like Portable Network Graphics to its acronym (PNG).
+Help generate some jargon by writing a program that converts a long name like Portable Network Graphics to its acronym (PNG).
 
-## Running tests
-
-Execute the tests with:
-
-```bash
-$ mix test
-```
-
-### Pending tests
-
-In the test suites, all but the first test have been skipped.
-
-Once you get a test passing, you can unskip the next one by
-commenting out the relevant `@tag :pending` with a `#` symbol.
+Punctuation is handled as follows: hyphens are word separators (like whitespace); all other punctuation can be removed from the input.
 
 For example:
 
-```elixir
-# @tag :pending
-test "shouting" do
-  assert Bob.hey("WATCH OUT!") == "Whoa, chill out!"
-end
-```
-
-Or, you can enable all the tests by commenting out the
-`ExUnit.configure` line in the test suite.
-
-```elixir
-# ExUnit.configure exclude: :pending, trace: true
-```
-
-If you're stuck on something, it may help to look at some of
-the [available resources](https://exercism.io/tracks/elixir/resources)
-out there where answers might be found.
+| Input                     | Output |
+| ------------------------- | ------ |
+| As Soon As Possible       | ASAP   |
+| Liquid-crystal display    | LCD    |
+| Thank George It's Friday! | TGIF   |
 
 ## Source
 
-Julien Vanier [https://github.com/monkbroc](https://github.com/monkbroc)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @Teapane
+
+### Contributed to by
+
+- @angelikatyborska
+- @Cohen-Carlisle
+- @dalexj
+- @devonestes
+- @gmile
+- @henrik
+- @jwworth
+- @lpil
+- @martinsvalin
+- @neenjaw
+- @parkerl
+- @rubysolo
+- @sotojuan
+- @waiting-for-dev
+
+### Based on
+
+Julien Vanier - https://github.com/monkbroc
