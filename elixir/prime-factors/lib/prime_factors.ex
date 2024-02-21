@@ -9,18 +9,18 @@ defmodule PrimeFactors do
   """
   @spec factors_for(pos_integer) :: [pos_integer]
   def factors_for(number) do
-    calcultate_factors(number, [], 2)
+    calculate_factors(number, [], 2)
   end
 
-  defp calcultate_factors(1, list, _divisor) do
+  defp calculate_factors(1, list, _divisor) do
     list |> Enum.reverse()
   end
 
-  defp calcultate_factors(number, list, divisor) do
+  defp calculate_factors(number, list, divisor) do
     if rem(number, divisor) == 0 do
-      calcultate_factors(div(number, divisor), [divisor | list], divisor)
+      calculate_factors(div(number, divisor), [divisor | list], divisor)
     else
-      calcultate_factors(number, list, divisor + 1)
+      calculate_factors(number, list, divisor + 1)
     end
   end
 end
