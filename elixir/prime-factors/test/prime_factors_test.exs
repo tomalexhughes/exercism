@@ -50,7 +50,7 @@ defmodule PrimeFactorsTest do
   end
 
   @tag :slow
-  # @tag timeout: 2000
+  @tag timeout: 2000
   #
   # The timeout tag above will set the below test to fail unless it completes
   # in under two seconds. Uncomment it if you want to test the efficiency of your
