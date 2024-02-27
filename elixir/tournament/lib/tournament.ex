@@ -29,7 +29,7 @@ defmodule Tournament do
       input
       |> Enum.map(&String.split(&1, ";"))
       |> convert_games_data_structure()
-      |> Enum.map(&add_meta_data(&1))
+      |> Enum.map(&add_meta_data/1)
       |> Enum.sort(&sort_by_points/2)
 
     Tablify.display(
