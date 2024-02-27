@@ -30,7 +30,7 @@ defmodule Tournament do
       |> Enum.map(&String.split(&1, ";"))
       |> convert_games_data_structure()
       |> Enum.map(&add_meta_data(&1))
-      |> Enum.sort_by(&Map.fetch(&1, :points), &Kernel.>=/2)
+      |> Enum.sort(&sort_by_points/2)
 
     Tablify.display(
       [
@@ -116,6 +116,13 @@ defmodule Tournament do
       points: Integer.to_string(points),
       matches_played: Integer.to_string(matches_played)
     }
+  end
+
+  defp sort_by_points(team_1, team_2) do
+    cond do
+      team_1[:points] == team_2[:points] -> team_1[:team_name] < team_2[:team_name]
+      true -> String.to_integer(team_1[:points]) >= String.to_integer(team_2[:points])
+    end
   end
 end
 
