@@ -45,10 +45,9 @@ defmodule TwelveDays do
 
   defp gifts_phrase_for_day(day),
     do:
-      [
-        "and #{gifts_phrase_for_day(1)}"
-        | 2..day |> Enum.map(fn day -> elem(@days_gifts[day], 1) end)
-      ]
+      2..day
+      |> Enum.map(fn day -> elem(@days_gifts[day], 1) end)
+      |> List.insert_at(0, "and #{gifts_phrase_for_day(1)}")
       |> Enum.reverse()
       |> Enum.join(", ")
 end
