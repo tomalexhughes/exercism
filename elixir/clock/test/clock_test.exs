@@ -84,6 +84,10 @@ defmodule ClockTest do
       assert Clock.new(1, -4820) |> to_string == "16:40"
     end
 
+    test "negative sixty minutes is previous hour" do
+      assert Clock.new(2, -60) |> to_string == "01:00"
+    end
+
     test "negative hour and minutes roll over" do
       assert Clock.new(-25, -160) |> to_string == "20:20"
     end
@@ -218,6 +222,10 @@ defmodule ClockTest do
 
     test "clocks with negative hours and minutes that wrap" do
       assert Clock.new(18, 7) == Clock.new(-54, -11513)
+    end
+
+    test "full clock and zeroed clock" do
+      assert Clock.new(24, 0) == Clock.new(0, 0)
     end
   end
 end
