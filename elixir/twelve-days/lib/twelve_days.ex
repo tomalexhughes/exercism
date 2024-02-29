@@ -30,7 +30,7 @@ defmodule TwelveDays do
   """
   @spec verses(starting_verse :: integer, ending_verse :: integer) :: String.t()
   def verses(starting_verse, ending_verse) do
-    starting_verse..ending_verse |> Enum.map(fn number -> verse(number) end) |> Enum.join("\n")
+    starting_verse..ending_verse |> Enum.map(&verse/1) |> Enum.join("\n")
   end
 
   @doc """
