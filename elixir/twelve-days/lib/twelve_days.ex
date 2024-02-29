@@ -21,7 +21,7 @@ defmodule TwelveDays do
   @spec verse(number :: integer) :: String.t()
   def verse(number) do
     day = elem(@days_gifts[number], 0)
-    "On the #{day} day of Christmas my true love gave to me: #{gifts(number)}."
+    "On the #{day} day of Christmas my true love gave to me: #{gifts_phrase_for_day(number)}."
   end
 
   @doc """
@@ -45,7 +45,10 @@ defmodule TwelveDays do
 
   defp gifts_phrase_for_day(day),
     do:
-      ["and #{gifts(1)}" | 2..day |> Enum.map(fn day -> elem(@days_gifts[day], 1) end)]
+      [
+        "and #{gifts_phrase_for_day(1)}"
+        | 2..day |> Enum.map(fn day -> elem(@days_gifts[day], 1) end)
+      ]
       |> Enum.reverse()
       |> Enum.join(", ")
 end
