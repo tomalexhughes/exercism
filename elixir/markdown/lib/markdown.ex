@@ -12,20 +12,20 @@ defmodule Markdown do
   """
   @spec parse(String.t()) :: String.t()
   def parse(m) do
-    patch(Enum.join(Enum.map(String.split(m, "\n"), fn t -> process(t) end)))
+    String.split(m, "\n") |> Enum.map(&process/1) |> Enum.join() |> patch
   end
 
+  defp process(<<head::binary-size(7), tail::binary>>) when head == "#######",
+    do: enclose_with_paragraph_tag(String.split(head <> tail))
+
+  defp process(<<head::binary-size(1), tail::binary>>) when head == "#",
+    do: enclose_with_header_tag(parse_header_md_level(head <> tail))
+
+  defp process(<<head::binary-size(1), tail::binary>>) when head == "*",
+    do: parse_list_md_level(head <> tail)
+
   defp process(t) do
-    if (String.starts_with?(t, "#") && !String.starts_with?(t, "#######")) ||
-         String.starts_with?(t, "*") do
-      if String.starts_with?(t, "#") do
-        enclose_with_header_tag(parse_header_md_level(t))
-      else
-        parse_list_md_level(t)
-      end
-    else
-      enclose_with_paragraph_tag(String.split(t))
-    end
+    enclose_with_paragraph_tag(String.split(t))
   end
 
   defp parse_header_md_level(hwt) do
@@ -47,11 +47,15 @@ defmodule Markdown do
   end
 
   defp join_words_with_tags(t) do
-    Enum.join(Enum.map(t, fn w -> replace_md_with_tag(w) end), " ")
+    t
+    |> Enum.map(&replace_md_with_tag/1)
+    |> Enum.join(" ")
   end
 
   defp replace_md_with_tag(w) do
-    replace_suffix_md(replace_prefix_md(w))
+    w
+    |> replace_prefix_md()
+    |> replace_suffix_md()
   end
 
   defp replace_prefix_md(w) do

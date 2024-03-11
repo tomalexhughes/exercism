@@ -78,6 +78,12 @@ defmodule MarkdownTest do
     assert Markdown.parse(input) == expected
   end
 
+  test "h8 header level is a paragraph" do
+    input = "######## This will not be an h7"
+    expected = "<p>######## This will not be an h7</p>"
+    assert Markdown.parse(input) == expected
+  end
+
   # @tag :pending
   test "unordered lists" do
     input = "* Item 1\n* Item 2"
