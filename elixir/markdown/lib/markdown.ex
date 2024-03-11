@@ -15,18 +15,10 @@ defmodule Markdown do
     String.split(m, "\n") |> Enum.map(&process/1) |> Enum.join() |> patch
   end
 
-  defp process(<<head::binary-size(7), tail::binary>>) when head == "#######",
-    do: enclose_with_paragraph_tag(String.split(head <> tail))
-
-  defp process(<<head::binary-size(1), tail::binary>>) when head == "#",
-    do: enclose_with_header_tag(parse_header_md_level(head <> tail))
-
-  defp process(<<head::binary-size(1), tail::binary>>) when head == "*",
-    do: parse_list_md_level(head <> tail)
-
-  defp process(t) do
-    enclose_with_paragraph_tag(String.split(t))
-  end
+  defp process("#######" <> tail), do: enclose_with_paragraph_tag(String.split("#######" <> tail))
+  defp process("#" <> tail), do: enclose_with_header_tag(parse_header_md_level("#" <> tail))
+  defp process("*" <> tail), do: parse_list_md_level("*" <> tail)
+  defp process(t), do: enclose_with_paragraph_tag(String.split(t))
 
   defp parse_header_md_level(hwt) do
     [h | t] = String.split(hwt)
