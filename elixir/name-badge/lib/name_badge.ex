@@ -1,5 +1,7 @@
 defmodule NameBadge do
   def print(id, name, department) do
-    # Please implement the print/3 function
+    department = if department, do: department, else: "owner"
+    id = if id, do: "[#{id}] - ", else: ""
+    id <> "#{name} - #{String.upcase(department)}"
   end
 end
