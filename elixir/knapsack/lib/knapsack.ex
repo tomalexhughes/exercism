@@ -7,9 +7,8 @@ defmodule Knapsack do
   def maximum_value(items, maximum_weight, bag_value \\ 0)
   def maximum_value([], _maximum_weight, bag_value), do: bag_value
 
-  def maximum_value([%{weight: weight} | tl], maximum_weight, bag_value)
-      when weight > maximum_weight,
-      do: maximum_value(tl, maximum_weight, bag_value)
+  def maximum_value([hd | tl], maximum_weight, bag_value) when hd.weight > maximum_weight,
+    do: maximum_value(tl, maximum_weight, bag_value)
 
   def maximum_value([hd | tl], maximum_weight, bag_value) do
     value_with_item =
