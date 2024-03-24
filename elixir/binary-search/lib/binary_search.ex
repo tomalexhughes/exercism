@@ -16,25 +16,23 @@ defmodule BinarySearch do
       {:ok, 2}
 
   """
-
   @spec search(tuple, integer) :: {:ok, integer} | :not_found
-  def search(numbers, item, index \\ 0)
-  def search({item}, item, index), do: {:ok, index}
-  def search({}, _, _), do: :not_found
-  def search({tuple_item}, item, _) when tuple_item != item, do: :not_found
+  def search({}, _key), do: :not_found
+  def search(numbers, key), do: search(numbers, key, 0, tuple_size(numbers) - 1)
+  def search(numbers, key, 0, 1) when elem(numbers, 0) == key, do: {:ok, 0}
 
-  def search(numbers, key, index) do
-    size = tuple_size(numbers)
-    as_list = Tuple.to_list(numbers)
-    middle_index = size |> div(2)
-    middle_item = as_list |> Enum.at(middle_index)
-    is_before_split = middle_item > key
-    range = if is_before_split, do: 0..(middle_index - 1), else: middle_index..-1//1
-    sliced = as_list |> Enum.slice(range)
+  def search(numbers, key, min, max) when div(max - min, 2) == 0 and elem(numbers, max) == key,
+    do: {:ok, max}
 
-    number_of_elements_removed =
-      if !is_before_split, do: length(as_list) - length(sliced), else: 0
+  def search(numbers, key, min, max) do
+    middle_index = div(max - min, 2) + min
+    middle_value = elem(numbers, middle_index)
 
-    search(List.to_tuple(sliced), key, index + number_of_elements_removed)
+    cond do
+      middle_index == max or middle_index == min -> :not_found
+      middle_value == key -> {:ok, middle_index}
+      middle_value < key -> search(numbers, key, middle_index, max)
+      middle_value > key -> search(numbers, key, min, middle_index)
+    end
   end
 end
