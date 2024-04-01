@@ -11,15 +11,10 @@ module SavingsAccount
     balance + (balance * interest_rate)
   end
 
-  def self.years_before_desired_balance(current_balance, desired_balance)
-    balance = current_balance
-    years = 0
+  def self.years_before_desired_balance(current_balance, desired_balance, years = 0)
 
-    until balance > desired_balance do
-      balance = annual_balance_update(balance)
-      years = years + 1
-    end
-
-    years
+    current_balance < desired_balance ?
+      SavingsAccount.years_before_desired_balance(annual_balance_update(current_balance), desired_balance, years + 1) :
+      years
   end
 end
