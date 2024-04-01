@@ -1,5 +1,8 @@
 require 'minitest/autorun'
+require 'minitest/reporters'
 require_relative 'savings_account'
+
+Minitest::Reporters.use!
 
 class SavingsAccountTest < Minitest::Test
   def test_minimal_first_interest_rate
