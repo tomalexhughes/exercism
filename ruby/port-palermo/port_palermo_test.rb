@@ -1,5 +1,8 @@
 require 'minitest/autorun'
+require 'minitest/reporters'
 require_relative 'port_palermo'
+
+Minitest::Reporters.use!
 
 class PortPalermoTest < Minitest::Test
   def test_identifier
