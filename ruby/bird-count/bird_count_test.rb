@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 require 'minitest/autorun'
+require 'minitest/reporters'
 require_relative 'bird_count'
 
+Minitest::Reporters.use!
 class BirdCountTest < Minitest::Test
   def test_last_week
     assert_equal [0, 2, 5, 3, 7, 8, 4], BirdCount.last_week
