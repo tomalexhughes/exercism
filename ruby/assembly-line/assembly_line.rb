@@ -1,5 +1,4 @@
 class AssemblyLine
-
   BASE_HOURLY_RATE = 221
 
   SUCCESS_RATE_TABLE = {
@@ -14,7 +13,7 @@ class AssemblyLine
   end
 
   def production_rate_per_hour
-    success_rate = SUCCESS_RATE_TABLE.detect{ |k, v| k.include?(@speed) }.last
+    success_rate = SUCCESS_RATE_TABLE.detect { |k, v| k.include?(@speed) }.last
     @speed * BASE_HOURLY_RATE * success_rate
   end
 

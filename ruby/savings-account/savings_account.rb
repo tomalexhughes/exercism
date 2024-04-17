@@ -12,7 +12,6 @@ module SavingsAccount
   end
 
   def self.years_before_desired_balance(current_balance, desired_balance, years = 0)
-
     current_balance < desired_balance ?
       years_before_desired_balance(annual_balance_update(current_balance), desired_balance, years + 1) :
       years
