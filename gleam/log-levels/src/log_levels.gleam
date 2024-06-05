@@ -3,8 +3,7 @@ import gleam/result
 import gleam/string.{split}
 
 pub fn message(log_line: String) -> String {
-  let assert Ok(message) = split(log_line, ":") |> last
-  message |> string.trim
+  log_line |> split(":") |> last |> result.unwrap("") |> string.trim
 }
 
 pub fn log_level(log_line: String) -> String {
