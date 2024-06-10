@@ -22,9 +22,7 @@ pub fn reverse_list(languages: List(String)) -> List(String) {
 
 pub fn exciting_list(languages: List(String)) -> Bool {
   case languages {
-    ["Gleam", ..] -> True
-    [_, "Gleam"] -> True
-    [_, "Gleam", _] -> True
+    ["Gleam", ..] | [_, "Gleam"] | [_, "Gleam", _] -> True
     _ -> False
   }
 }
