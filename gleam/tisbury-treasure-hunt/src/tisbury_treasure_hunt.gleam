@@ -29,19 +29,19 @@ pub fn special_case_swap_possible(
   place: #(String, #(String, Int)),
   desired_treasure: #(String, #(Int, String)),
 ) -> Bool {
-  case found_treasure, desired_treasure, place {
-    #("Brass Spyglass", _), _, #("Abandoned Lighthouse", _) -> True
-    #("Amethyst Octopus", _), #("Crystal Crab", _), #("Stormy Breakwater", _) ->
-      True
-    #("Amethyst Octopus", _), #("Glass Starfish", _), #("Stormy Breakwater", _) ->
-      True
-    #("Vintage Pirate Hat", _),
-      #("Model Ship in Large Bottle", _),
-      #("Harbor Managers Office", _)
+  let found_treasure_name = found_treasure.0
+  let desired_treasure_name = desired_treasure.0
+  let place_name = place.0
+
+  case found_treasure_name, desired_treasure_name, place_name {
+    "Brass Spyglass", _, "Abandoned Lighthouse" -> True
+    "Amethyst Octopus", "Crystal Crab", "Stormy Breakwater" -> True
+    "Amethyst Octopus", "Glass Starfish", "Stormy Breakwater" -> True
+    "Vintage Pirate Hat", "Model Ship in Large Bottle", "Harbor Managers Office"
     -> True
-    #("Vintage Pirate Hat", _),
-      #("Antique Glass Fishnet Float", _),
-      #("Harbor Managers Office", _)
+    "Vintage Pirate Hat",
+      "Antique Glass Fishnet Float",
+      "Harbor Managers Office"
     -> True
     _, _, _ -> False
   }
