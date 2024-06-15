@@ -1,6 +1,3 @@
-import gleam/int
-import gleam/list
-
 pub fn today(days: List(Int)) -> Int {
   case days {
     // NOTE: `..` rather than, `_` as the latter matches a list of exactly two elements
@@ -17,23 +14,24 @@ pub fn increment_day_count(days: List(Int)) -> List(Int) {
 }
 
 pub fn has_day_without_birds(days: List(Int)) -> Bool {
-  // TODO: Replace with recursion
-  list.any(days, fn(day) { day == 0 })
+  case days {
+    [] -> False
+    [0, ..] -> True
+    [_, ..rest] -> has_day_without_birds(rest)
+  }
 }
 
 pub fn total(days: List(Int)) -> Int {
-  // TODO: Replace with recursion
-  case list.reduce(days, int.add) {
-    Ok(total) -> total
-    _ -> 0
+  case days {
+    [] -> 0
+    [day, ..rest] -> day + total(rest)
   }
 }
 
 pub fn busy_days(days: List(Int)) -> Int {
-  // TODO: Replace with recursion
-  let minimum_birds_for_busy_day = 5
-
-  days
-  |> list.filter(fn(day) { day >= minimum_birds_for_busy_day })
-  |> list.length
+  case days {
+    [] -> 0
+    [day, ..rest] if day >= 5 -> busy_days(rest) + 1
+    [_day, ..rest] -> busy_days(rest)
+  }
 }
