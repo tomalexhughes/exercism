@@ -22,16 +22,24 @@ pub fn has_day_without_birds(days: List(Int)) -> Bool {
 }
 
 pub fn total(days: List(Int)) -> Int {
+  total_loop(days, 0)
+}
+
+fn total_loop(days: List(Int), acc: Int) -> Int {
   case days {
-    [] -> 0
-    [day, ..rest] -> day + total(rest)
+    [] -> acc
+    [day, ..rest] -> total_loop(rest, acc + day)
   }
 }
 
 pub fn busy_days(days: List(Int)) -> Int {
+  busy_days_loop(days, 0)
+}
+
+fn busy_days_loop(days: List(Int), acc: Int) -> Int {
   case days {
-    [] -> 0
-    [day, ..rest] if day >= 5 -> busy_days(rest) + 1
-    [_day, ..rest] -> busy_days(rest)
+    [] -> acc
+    [day, ..rest] if day >= 5 -> busy_days_loop(rest, acc + 1)
+    [_day, ..rest] -> busy_days_loop(rest, acc)
   }
 }
