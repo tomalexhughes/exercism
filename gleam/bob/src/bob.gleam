@@ -1,7 +1,23 @@
 import gleam/result
 import gleam/string
 
+type Remark {
+  Silence
+  Question(shouting: Bool)
+  Statement(shouting: Bool)
+}
+
 pub fn hey(remark: String) -> String {
+  case parse_remark(remark) {
+    Silence -> "Fine. Be that way!"
+    Question(shouting: True) -> "Calm down, I know what I'm doing!"
+    Statement(True) -> "Whoa, chill out!"
+    Question(False) -> "Sure."
+    Statement(False) -> "Whatever."
+  }
+}
+
+fn parse_remark(remark: String) -> Remark {
   let remark = string.trim(remark)
   let is_question = string.last(remark) |> result.unwrap("") == "?"
   let is_shouting =
@@ -9,10 +25,10 @@ pub fn hey(remark: String) -> String {
   let is_silence = string.is_empty(remark)
 
   case is_question, is_shouting, is_silence {
-    _, _, True -> "Fine. Be that way!"
-    True, True, False -> "Calm down, I know what I'm doing!"
-    False, True, False -> "Whoa, chill out!"
-    True, False, False -> "Sure."
-    _, _, _ -> "Whatever."
+    _, _, True -> Silence
+    True, True, False -> Question(shouting: True)
+    False, True, False -> Statement(shouting: True)
+    True, False, False -> Question(shouting: False)
+    _, _, _ -> Statement(shouting: False)
   }
 }
