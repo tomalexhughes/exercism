@@ -1,3 +1,5 @@
+import gleam/result
+
 pub type Player {
   Black
   White
@@ -19,5 +21,22 @@ pub fn apply_rules(
   rule3: fn(Game) -> Result(Game, String),
   rule4: fn(Game) -> Result(Game, String),
 ) -> Game {
-  todo
+  let applied_game =
+    game
+    |> rule1
+    |> result.map(rule2)
+    |> result.try(rule3)
+    |> result.try(rule4)
+
+  case applied_game {
+    Ok(game) -> swap_player(game)
+    Error(error) -> Game(..game, error: error)
+  }
+}
+
+fn swap_player(game: Game) -> Game {
+  case game {
+    Game(_, _, Black, _) -> Game(..game, player: White)
+    Game(_, _, White, _) -> Game(..game, player: Black)
+  }
 }
