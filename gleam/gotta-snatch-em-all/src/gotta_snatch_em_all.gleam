@@ -31,30 +31,13 @@ pub fn trade_card(
 }
 
 pub fn boring_cards(collections: List(Set(String))) -> List(String) {
-  let first_collection = list.first(collections) |> result.unwrap(set.new())
-  do_boring_cards(collections, first_collection) |> set.to_list
-}
-
-fn do_boring_cards(
-  collections: List(Set(String)),
-  boring_cards: Set(String),
-) -> Set(String) {
-  case collections {
-    [first, ..rest] ->
-      do_boring_cards(rest, set.intersection(first, boring_cards))
-    _ -> boring_cards
-  }
+  list.reduce(collections, set.intersection)
+  |> result.unwrap(set.new())
+  |> set.to_list
 }
 
 pub fn total_cards(collections: List(Set(String))) -> Int {
-  all_cards(collections, set.new()) |> set.to_list |> list.length
-}
-
-fn all_cards(collections: List(Set(String)), cards: Set(String)) -> Set(String) {
-  case collections {
-    [first, ..rest] -> all_cards(rest, set.union(first, cards))
-    _ -> cards
-  }
+  list.fold(collections, set.new(), set.union) |> set.size
 }
 
 pub fn shiny_cards(collection: Set(String)) -> Set(String) {
