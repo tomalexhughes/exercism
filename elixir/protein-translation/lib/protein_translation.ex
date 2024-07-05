@@ -28,7 +28,6 @@ defmodule ProteinTranslation do
   def of_rna(rna) do
     codon_list =
       rna_string_to_list(rna)
-      |> Enum.uniq()
       |> Enum.map(fn codon -> @proteins[codon] end)
 
     proteins =
