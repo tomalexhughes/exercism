@@ -1,23 +1,29 @@
-// Please define the Usd type
+import gleam/list
 
-// Please define the Eur type
+pub type Usd
 
-// Please define the Jpy type
+pub type Eur
 
-// Please define the Money type
+pub type Jpy
+
+pub opaque type Money(currency) {
+  Money(amount: Int)
+}
 
 pub fn dollar(amount: Int) -> Money(Usd) {
-  todo
+  Money(amount)
 }
 
 pub fn euro(amount: Int) -> Money(Eur) {
-  todo
+  Money(amount)
 }
 
 pub fn yen(amount: Int) -> Money(Jpy) {
-  todo
+  Money(amount)
 }
 
 pub fn total(prices: List(Money(currency))) -> Money(currency) {
-  todo
+  let amount = list.fold(prices, 0, fn(acc, money) { acc + money.amount })
+  // amount |> Money // We can pipe directly into the record constructor!
+  Money(amount)
 }
