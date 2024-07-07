@@ -5,17 +5,17 @@ pub type Item {
 }
 
 pub fn item_names(items: Iterator(Item)) -> Iterator(String) {
-  todo
+  items |> iterator.map(fn(item) { item.name })
 }
 
 pub fn cheap(items: Iterator(Item)) -> Iterator(Item) {
-  todo
+  items |> iterator.filter(fn(item) { item.price < 30 })
 }
 
 pub fn out_of_stock(items: Iterator(Item)) -> Iterator(Item) {
-  todo
+  items |> iterator.filter(fn(item) { item.quantity == 0 })
 }
 
 pub fn total_stock(items: Iterator(Item)) -> Int {
-  todo
+  items |> iterator.fold(0, fn(acc, item) { acc + item.quantity })
 }
