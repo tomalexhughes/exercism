@@ -83,3 +83,13 @@ bell@example.com
   log
   |> should.equal("bushra@example.com\nbell@example.com\n")
 }
+
+pub fn send_newsletter_fails_when_log_file_exists_test() {
+  let _ = simplifile.delete("log.txt")
+  let _ = simplifile.create_file("log.txt")
+
+  let email = "bushra@example.com\n"
+  let assert Ok(Nil) = simplifile.write("emails.txt", email)
+  let assert Error(Nil) =
+    newsletter.send_newsletter("emails.txt", "log.txt", fn(_email) { Ok(Nil) })
+}

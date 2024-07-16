@@ -12,7 +12,7 @@ pub fn read_emails(path: String) -> Result(List(String), Nil) {
 
 pub fn create_log_file(path: String) -> Result(Nil, Nil) {
   path
-  |> simplifile.write("")
+  |> simplifile.create_file
   |> result.nil_error
 }
 
