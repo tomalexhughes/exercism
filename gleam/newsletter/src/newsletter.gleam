@@ -25,28 +25,14 @@ pub fn log_sent_email(path: String, email: String) -> Result(Nil, Nil) {
 pub fn send_newsletter(
   emails_path: String,
   log_path: String,
-  send_email email_sender: fn(String) -> Result(Nil, Nil),
+  send_email: fn(String) -> Result(Nil, Nil),
 ) -> Result(Nil, Nil) {
-  let _ = create_log_file(log_path)
+  use _ <- result.try(create_log_file(log_path))
+  use emails <- result.try(read_emails(emails_path))
+  use email <- list.try_each(emails)
 
-  read_emails(emails_path)
-  |> result.unwrap([])
-  |> list.map(fn(email) { send_email(email_sender, email, log_path) })
-  |> result.all
-  |> result.replace(Nil)
-  |> result.nil_error
-}
-
-fn send_email(
-  email_sender: fn(String) -> Result(Nil, Nil),
-  email: String,
-  log_path: String,
-) {
-  case email_sender(email) {
-    Ok(_) -> {
-      let _ = log_sent_email(log_path, email)
-      Ok(Nil)
-    }
+  case send_email(email) {
+    Ok(_) -> log_sent_email(log_path, email)
     Error(_) -> Ok(Nil)
   }
 }
