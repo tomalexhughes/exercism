@@ -1,3 +1,15 @@
+import gleam/regex
+import gleam/set
+import gleam/string
+
 pub fn is_pangram(sentence: String) -> Bool {
-  todo as "implement this function"
+  let assert Ok(chars_regex) = regex.from_string("[^a-z]")
+
+  sentence
+  |> string.lowercase
+  |> regex.replace(chars_regex, _, "")
+  |> string.to_graphemes
+  |> set.from_list
+  |> set.size
+  == 26
 }
