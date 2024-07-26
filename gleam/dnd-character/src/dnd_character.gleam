@@ -1,4 +1,5 @@
 import gleam/int
+import gleam/iterator
 import gleam/list
 
 pub type Character {
@@ -35,7 +36,9 @@ pub fn modifier(score: Int) -> Int {
 pub fn ability() -> Int {
   let roll = fn() { int.random(5) + 1 }
 
-  [roll(), roll(), roll(), roll()]
+  iterator.repeatedly(roll)
+  |> iterator.take(4)
+  |> iterator.to_list
   |> list.sort(int.compare)
   |> list.drop(1)
   |> int.sum
