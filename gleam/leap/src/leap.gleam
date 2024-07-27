@@ -1,3 +1,11 @@
 pub fn is_leap_year(year: Int) -> Bool {
-  False
+  let divisible_by_4 = year % 4 == 0
+  let divisible_by_100 = year % 100 == 0
+  let divisible_by_400 = year % 400 == 0
+
+  case divisible_by_4, divisible_by_100, divisible_by_400 {
+    True, False, False -> True
+    True, True, True -> True
+    _, _, _ -> False
+  }
 }
