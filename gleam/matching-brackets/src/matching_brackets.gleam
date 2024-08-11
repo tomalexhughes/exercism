@@ -26,11 +26,11 @@ fn do_is_paired(value: String, stack: List(BracketType)) -> Bool {
 
     "", _, _, _ -> False
 
-    _, _, Closing(a), Ok(Opening(b)) if a != b -> False
-
-    _, _, Closing(_), Ok(Opening(_)) -> {
+    _, _, Closing(a), Ok(Opening(b)) if a == b -> {
       do_is_paired(string.drop_left(value, 1), list.drop(stack, 1))
     }
+
+    _, _, Closing(_), _ -> False
 
     _, _, Opening(a), _ -> {
       do_is_paired(string.drop_left(value, 1), [Opening(a), ..stack])
@@ -39,8 +39,6 @@ fn do_is_paired(value: String, stack: List(BracketType)) -> Bool {
     _, _, NotApplicable, _ -> {
       do_is_paired(string.drop_left(value, 1), stack)
     }
-
-    _, _, _, _ -> False
   }
 }
 
