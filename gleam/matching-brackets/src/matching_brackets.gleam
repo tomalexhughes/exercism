@@ -20,17 +20,15 @@ pub fn is_paired(value: String) -> Bool {
 
 fn do_is_paired(value: String, stack: List(BracketType)) -> Bool {
   let bracket = string.first(value) |> result.unwrap("") |> to_bracket
-  let is_finished = value == ""
-  let is_stack_empty = list.is_empty(stack)
 
-  case is_finished, is_stack_empty, bracket, list.first(stack) {
-    True, True, _, _ -> True
+  case value, stack, bracket, list.first(stack) {
+    "", [], _, _ -> True
 
-    True, False, _, _ -> False
+    "", _, _, _ -> False
 
     _, _, Closing(a), Ok(Opening(b)) if a != b -> False
 
-    _, _, Closing(a), Ok(Opening(b)) if a == b -> {
+    _, _, Closing(_), Ok(Opening(_)) -> {
       do_is_paired(string.drop_left(value, 1), list.drop(stack, 1))
     }
 
