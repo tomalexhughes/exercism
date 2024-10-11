@@ -1,7 +1,7 @@
 import gleam/queue.{type Queue}
 
 pub fn insert_top(queue: Queue(Int), card: Int) -> Queue(Int) {
-  queue |> queue.push_back(card)
+  card |> queue.push_back(queue, _)
 }
 
 pub fn remove_top_card(queue: Queue(Int)) -> Queue(Int) {
@@ -12,7 +12,7 @@ pub fn remove_top_card(queue: Queue(Int)) -> Queue(Int) {
 }
 
 pub fn insert_bottom(queue: Queue(Int), card: Int) -> Queue(Int) {
-  queue |> queue.push_front(card)
+  card |> queue.push_front(queue, _)
 }
 
 pub fn remove_bottom_card(queue: Queue(Int)) -> Queue(Int) {
