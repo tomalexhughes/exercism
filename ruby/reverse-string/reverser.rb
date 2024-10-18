@@ -1,7 +1,16 @@
-=begin
-Write your code for the 'Reverse String' exercise in this file. Make the tests in
-`reverse_string_test.rb` pass.
+class Reverser
+  def self.reverse(string)
+    # s = 0
+    # e = string.length - 1
+    #
+    # while s < e
+    #   string[s], string[e] = string[e], string[s]
+    #   s += 1
+    #   e -= 1
+    # end
+    #
+    # string
 
-To get started with TDD, see the `README.md` file in your
-`ruby/reverse-string` directory.
-=end
+    string.reverse
+  end
+end
