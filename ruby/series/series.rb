@@ -9,7 +9,6 @@ class Series
     @digits_string
       .chars
       .each_cons(size)
-      .to_a
       .map(&:join)
   end
 end
