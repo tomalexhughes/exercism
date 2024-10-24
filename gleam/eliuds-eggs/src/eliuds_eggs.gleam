@@ -1,3 +1,10 @@
+import gleam/int
+import gleam/list
+import gleam/string
+
 pub fn egg_count(number: Int) -> Int {
-  todo
+  number
+  |> int.to_base2
+  |> string.to_graphemes
+  |> list.count(fn(bit) { bit == "1" })
 }
