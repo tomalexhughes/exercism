@@ -9,20 +9,15 @@ pub fn slices(input: String, size: Int) -> Result(List(String), Error) {
     _, size if size == 0 -> Error(SliceLengthZero)
     _, size if size < 0 -> Error(SliceLengthNegative)
     input_length, size if size > input_length -> Error(SliceLengthTooLarge)
-    _, _ -> Ok(slice(input, size, []) |> list.reverse)
+    _, _ -> Ok(slice(input, size))
   }
 }
 
-fn slice(input: String, size: Int, slices: List(String)) {
-  case string.length(input) < size {
-    True -> slices
-    False -> {
-      let new_input = string.drop_left(input, 1)
-      let new_slice = string.slice(input, 0, size)
-      let slices = [new_slice, ..slices]
-      slice(new_input, size, slices)
-    }
-  }
+fn slice(input: String, size: Int) {
+  input
+  |> string.to_graphemes
+  |> list.window(size)
+  |> list.map(string.concat)
 }
 
 pub type Error {
