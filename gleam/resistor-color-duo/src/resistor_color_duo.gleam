@@ -14,11 +14,11 @@ pub type Color {
 pub fn value(colors: List(Color)) -> Result(Int, Nil) {
   case colors {
     [color_1, color_2, ..] -> {
-      // [color_1, color_2]
-      // |> list.map(fn(x) { color_value(x) })
-      // |> list.map(fn(x) { int.to_string(x) })
-      // |> string.join("")
-      // |> int.parse
+      //   [color_1, color_2]
+      //   |> list.map(color_value)
+      //   |> list.map(int.to_string)
+      //   |> string.join("")
+      //   |> int.parse
 
       Ok(color_value(color_1) * 10 + color_value(color_2))
     }
