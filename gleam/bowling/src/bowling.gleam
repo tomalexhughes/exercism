@@ -31,9 +31,13 @@ pub fn roll(game: Game, knocked_pins: Int) -> Result(Game, Error) {
       Ok(Game(frames))
     }
     [roll_1, roll_2, ..] if roll_2 + roll_1 == 10 -> {
-      // TODO: add bonus
+      // TODO: add bonus to the previous frame or this frame
       let frame: Frame = Frame(rolls: [knocked_pins], bonus: [])
-      let frames = [frame, ..game.frames]
+      // TODO: This will be easier if we dont have a default first frame
+      let previous_frame: Frame =
+        add_bonus_to_previous_frame(game, knocked_pins)
+      let other_frames = list.drop(game.frames, 1)
+      let frames = [frame, previous_frame, ..other_frames]
       Ok(Game(frames))
     }
     // TODO: merge these conditions
@@ -53,8 +57,16 @@ pub fn roll(game: Game, knocked_pins: Int) -> Result(Game, Error) {
 pub fn score(game: Game) -> Result(Int, Error) {
   let score =
     list.fold(over: game.frames, from: 0, with: fn(score, frame) {
-      score + int.sum(frame.rolls)
+      score + int.sum(frame.rolls) + int.sum(frame.bonus)
     })
 
   Ok(score)
+}
+
+fn add_bonus_to_previous_frame(game: Game, bonus: Int) -> Frame {
+  // TODO: Remove `let assert`
+  let assert Ok(frame) = game.frames |> list.first
+
+  // TODO: Do we need to create a new frame, or can we update the existing
+  Frame(rolls: frame.rolls, bonus: [bonus])
 }

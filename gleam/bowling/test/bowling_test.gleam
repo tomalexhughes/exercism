@@ -37,13 +37,13 @@ pub fn points_after_spare_test() {
   |> roll_and_check_score(16)
 }
 
-//
-// pub fn consecutive_spares_test() {
-//   let rolls = [5, 5, 3, 7, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-//
-//   rolls
-//   |> roll_and_check_score(31)
-// }
+pub fn consecutive_spares_test() {
+  let rolls = [5, 5, 3, 7, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+  rolls
+  |> roll_and_check_score(31)
+}
+
 //
 // pub fn spare_in_last_frame_test() {
 //   let rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 3, 7]
