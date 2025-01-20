@@ -18,8 +18,17 @@ pub type Error {
 pub fn roll(game: Game, knocked_pins: Int) -> Result(Game, Error) {
   let frames = game.frames
   let latest_frame = list.first(frames)
+  let total_number_of_frames = list.length(frames)
 
   case latest_frame {
+    Ok(frame) if total_number_of_frames == 10 -> {
+      let previous_frame: Frame =
+        Frame(..frame, bonus: [knocked_pins, ..frame.bonus])
+      let other_frames = list.drop(game.frames, 1)
+      let frames = [previous_frame, ..other_frames]
+      Ok(Game(frames))
+    }
+
     Ok(Frame(rolls: [roll_1], bonus: _)) -> {
       let frame: Frame = Frame(rolls: [roll_1, knocked_pins], bonus: [])
       let other_frames = list.drop(game.frames, 1)
