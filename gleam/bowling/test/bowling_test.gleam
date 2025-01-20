@@ -59,13 +59,13 @@ pub fn strike_in_single_roll_frame_test() {
   |> roll_and_check_score(10)
 }
 
-//
-// pub fn two_rolls_after_strike_test() {
-//   let rolls = [10, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-//
-//   rolls
-//   |> roll_and_check_score(26)
-// }
+pub fn two_rolls_after_strike_test() {
+  let rolls = [10, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+  rolls
+  |> roll_and_check_score(26)
+}
+
 //
 // pub fn consecutive_strikes_test() {
 //   let rolls = [10, 10, 10, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]

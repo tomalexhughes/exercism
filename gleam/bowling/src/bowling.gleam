@@ -20,6 +20,19 @@ pub fn roll(game: Game, knocked_pins: Int) -> Result(Game, Error) {
   let total_number_of_frames = list.length(frames)
 
   case game.frames {
+    [
+      Frame([roll_1, roll_2], bonus),
+      Frame(rolls: [10], bonus: _),
+      ..remaining_frames
+    ] -> {
+      let frames = [
+        Frame([roll_1, roll_2], bonus),
+        Frame(rolls: [10], bonus: [roll_1, roll_2]),
+        ..remaining_frames
+      ]
+      Ok(Game(frames))
+    }
+
     [Frame(rolls: rolls, bonus: bonus), ..] if total_number_of_frames == 10 -> {
       let previous_frame: Frame =
         Frame(rolls: rolls, bonus: [knocked_pins, ..bonus])
@@ -28,7 +41,7 @@ pub fn roll(game: Game, knocked_pins: Int) -> Result(Game, Error) {
       Ok(Game(frames))
     }
 
-    [Frame(rolls: [roll_1], ..), ..] -> {
+    [Frame(rolls: [roll_1], ..), ..] if roll_1 != 10 -> {
       let frame: Frame = Frame(rolls: [roll_1, knocked_pins], bonus: [])
       let other_frames = list.drop(game.frames, 1)
       let frames = [frame, ..other_frames]
