@@ -66,48 +66,48 @@ pub fn two_rolls_after_strike_test() {
   |> roll_and_check_score(26)
 }
 
-//
-// pub fn consecutive_strikes_test() {
-//   let rolls = [10, 10, 10, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-//
-//   rolls
-//   |> roll_and_check_score(81)
-// }
-//
-// pub fn strike_in_last_frame_test() {
-//   let rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 7, 1]
-//
-//   rolls
-//   |> roll_and_check_score(18)
-// }
-//
-// pub fn spare_with_two_roll_bonus_test() {
-//   let rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 7, 3]
-//
-//   rolls
-//   |> roll_and_check_score(20)
-// }
-//
-// pub fn strike_with_two_roll_bonus_test() {
-//   let rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10]
-//
-//   rolls
-//   |> roll_and_check_score(30)
-// }
-//
-// pub fn strike_with_one_roll_bonus_after_spare_in_last_frame_test() {
-//   let rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 3, 10]
-//
-//   rolls
-//   |> roll_and_check_score(20)
-// }
-//
+pub fn consecutive_strikes_test() {
+  let rolls = [10, 10, 10, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+  rolls
+  |> roll_and_check_score(81)
+}
+
+pub fn strike_in_last_frame_test() {
+  let rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 7, 1]
+
+  rolls
+  |> roll_and_check_score(18)
+}
+
+pub fn spare_with_two_roll_bonus_test() {
+  let rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 7, 3]
+
+  rolls
+  |> roll_and_check_score(20)
+}
+
+pub fn strike_with_two_roll_bonus_test() {
+  let rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10]
+
+  rolls
+  |> roll_and_check_score(30)
+}
+
+pub fn strike_with_one_roll_bonus_after_spare_in_last_frame_test() {
+  let rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 3, 10]
+
+  rolls
+  |> roll_and_check_score(20)
+}
+
 // pub fn all_strikes_test() {
 //   let rolls = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
 //
 //   rolls
 //   |> roll_and_check_score(300)
 // }
+
 //
 // pub fn negative_point_roll_test() {
 //   let assert Error(_) = roll(Game([]), -1)

@@ -20,6 +20,35 @@ pub fn roll(game: Game, knocked_pins: Int) -> Result(Game, Error) {
   let total_number_of_frames = list.length(frames)
 
   case game.frames {
+    [Frame(rolls: rolls, bonus: bonus), ..other_frames]
+      if total_number_of_frames == 10
+    -> {
+      let last_frame: Frame =
+        Frame(rolls: rolls, bonus: [knocked_pins, ..bonus])
+      let frames = [last_frame, ..other_frames]
+      Ok(Game(frames))
+    }
+
+    [Frame([10], _), Frame([10], bonus), ..rest] ->
+      Ok(
+        Game([
+          Frame([knocked_pins], []),
+          // The second bonus never gets applied here
+          Frame([10], [knocked_pins]),
+          Frame([10], [knocked_pins, ..bonus]),
+          ..rest
+        ]),
+      )
+
+    [Frame([10], bonus), ..rest] ->
+      Ok(
+        Game([
+          Frame([knocked_pins], []),
+          Frame([10], [knocked_pins, ..bonus]),
+          ..rest
+        ]),
+      )
+
     [
       Frame([roll_1, roll_2], bonus),
       Frame(rolls: [10], bonus: _),
@@ -30,14 +59,6 @@ pub fn roll(game: Game, knocked_pins: Int) -> Result(Game, Error) {
         Frame(rolls: [10], bonus: [roll_1, roll_2]),
         ..remaining_frames
       ]
-      Ok(Game(frames))
-    }
-
-    [Frame(rolls: rolls, bonus: bonus), ..] if total_number_of_frames == 10 -> {
-      let previous_frame: Frame =
-        Frame(rolls: rolls, bonus: [knocked_pins, ..bonus])
-      let other_frames = list.drop(game.frames, 1)
-      let frames = [previous_frame, ..other_frames]
       Ok(Game(frames))
     }
 
