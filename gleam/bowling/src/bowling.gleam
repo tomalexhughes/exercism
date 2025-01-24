@@ -20,11 +20,11 @@ pub fn roll(game: Game, knocked_pins: Int) -> Result(Game, Error) {
   let total_number_of_frames = list.length(frames)
 
   case game.frames {
-    [Frame(rolls: [10], bonus: _), Frame([10], f2b), ..other_frames]
+    [Frame(rolls: [10], bonus: _), Frame([10], [b]), ..other_frames]
       if total_number_of_frames == 10
     -> {
       let tenth_frame: Frame = Frame(rolls: [10], bonus: [knocked_pins])
-      let ninth_frame: Frame = Frame(rolls: [10], bonus: [10, ..f2b])
+      let ninth_frame: Frame = Frame(rolls: [10], bonus: [10, b])
 
       let frames = [tenth_frame, ninth_frame, ..other_frames]
       Ok(Game(frames))
