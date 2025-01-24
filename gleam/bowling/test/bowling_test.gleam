@@ -108,6 +108,13 @@ pub fn all_strikes_test() {
   |> roll_and_check_score(300)
 }
 
+pub fn all_strikes_but_last_test() {
+  let rolls = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1]
+
+  rolls
+  |> roll_and_check_score(291)
+}
+
 //
 // pub fn negative_point_roll_test() {
 //   let assert Error(_) = roll(Game([]), -1)
