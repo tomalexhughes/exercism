@@ -101,12 +101,12 @@ pub fn strike_with_one_roll_bonus_after_spare_in_last_frame_test() {
   |> roll_and_check_score(20)
 }
 
-// pub fn all_strikes_test() {
-//   let rolls = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
-//
-//   rolls
-//   |> roll_and_check_score(300)
-// }
+pub fn all_strikes_test() {
+  let rolls = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
+
+  rolls
+  |> roll_and_check_score(300)
+}
 
 //
 // pub fn negative_point_roll_test() {
@@ -136,12 +136,13 @@ pub fn strike_with_one_roll_bonus_after_spare_in_last_frame_test() {
 //   |> roll_and_last_roll_be_error(6, InvalidPinCount)
 // }
 //
-// pub fn two_bonus_rolls_after_strike_in_last_frame_and_one_is_strike_test() {
-//   let rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 6]
-//
-//   rolls
-//   |> roll_and_check_score(26)
-// }
+pub fn two_bonus_rolls_after_strike_in_last_frame_and_one_is_strike_test() {
+  let rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 6]
+
+  rolls
+  |> roll_and_check_score(26)
+}
+
 //
 // pub fn two_bonus_rolls_after_strike_in_last_frame_and_first_one_is_not_strike_test() {
 //   let rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 6]
