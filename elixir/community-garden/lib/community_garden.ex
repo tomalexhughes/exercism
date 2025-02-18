@@ -5,23 +5,38 @@ defmodule Plot do
 end
 
 defmodule CommunityGarden do
-  def start(opts) do
-    # Please implement the start/1 function
+  use Agent
+
+  def start(opts \\ []) do
+    Agent.start(fn -> %{plots: [], next_id: 1} end, opts)
   end
 
   def list_registrations(pid) do
-    # Please implement the list_registrations/1 function
+    Agent.get(pid, fn state -> state.plots end)
   end
 
   def register(pid, register_to) do
-    # Please implement the register/2 function
+    Agent.get_and_update(pid, fn %{plots: plots, next_id: next_id} ->
+      new_plot = %Plot{
+        plot_id: next_id,
+        registered_to: register_to
+      }
+
+      {new_plot, %{plots: [new_plot | plots], next_id: next_id + 1}}
+    end)
   end
 
   def release(pid, plot_id) do
-    # Please implement the release/2 function
+    Agent.update(pid, fn state ->
+      %{state | plots: Enum.filter(state.plots, fn plot -> plot.plot_id !== plot_id end)}
+    end)
   end
 
   def get_registration(pid, plot_id) do
-    # Please implement the get_registration/2 function
+    Agent.get(pid, fn state ->
+      Enum.find(state.plots, {:not_found, "plot is unregistered"}, fn plot ->
+        plot.plot_id === plot_id
+      end)
+    end)
   end
 end
