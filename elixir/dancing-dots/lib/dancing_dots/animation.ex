@@ -23,6 +23,7 @@ defmodule DancingDots.Flicker do
   def handle_frame(dot, frame_number, _opts) when rem(frame_number, 4) == 0,
     do: %{dot | opacity: dot.opacity / 2}
 
+  @impl DancingDots.Animation
   def handle_frame(dot, _, _), do: dot
 end
 
