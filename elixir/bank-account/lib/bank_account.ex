@@ -9,48 +9,38 @@ defmodule BankAccount do
   @opaque account :: pid
 
   @doc """
-  Open the bank. Makes the account available.
+  Open the bank account, making it available for further operations.
   """
-  @spec open_bank() :: account
-  def open_bank() do
-    {:ok, account} = Agent.start_link(fn -> 0 end)
-    account
+  @spec open() :: account
+  def open() do
   end
 
   @doc """
-  Close the bank. Makes the account unavailable.
+  Close the bank account, making it unavailable for further operations.
   """
-  @spec close_bank(account) :: none
-  def close_bank(account) do
-    Agent.stop(account)
+  @spec close(account) :: any
+  def close(account) do
   end
 
   @doc """
   Get the account's balance.
   """
-  @spec balance(account) :: integer
+  @spec balance(account) :: integer | {:error, :account_closed}
   def balance(account) do
-    if account_open_check(account),
-      do: Agent.get(account, fn balance -> balance end),
-      else: account_closed()
   end
 
   @doc """
-  Update the account's balance by adding the given amount which may be negative.
+  Add the given amount to the account's balance.
   """
-  @spec update(account, integer) :: any
-  def update(account, amount) do
-    if account_open_check(account),
-      do: Agent.update(account, fn balance -> balance + amount end),
-      else: account_closed()
+  @spec deposit(account, integer) :: :ok | {:error, :account_closed | :amount_must_be_positive}
+  def deposit(account, amount) do
   end
 
-  @spec account_open_check(account) :: Boolean
-  defp account_open_check(account) do
-    Process.alive?(account)
-  end
-
-  defp account_closed do
-    {:error, :account_closed}
+  @doc """
+  Subtract the given amount from the account's balance.
+  """
+  @spec withdraw(account, integer) ::
+          :ok | {:error, :account_closed | :amount_must_be_positive | :not_enough_balance}
+  def withdraw(account, amount) do
   end
 end
