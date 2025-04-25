@@ -13,6 +13,8 @@ defmodule BankAccount do
   """
   @spec open() :: account
   def open() do
+    {:ok, pid} = Agent.start(fn -> 0 end)
+    pid
   end
 
   @doc """
@@ -20,6 +22,7 @@ defmodule BankAccount do
   """
   @spec close(account) :: any
   def close(account) do
+    Agent.stop(account)
   end
 
   @doc """
@@ -27,6 +30,10 @@ defmodule BankAccount do
   """
   @spec balance(account) :: integer | {:error, :account_closed}
   def balance(account) do
+    case Process.alive?(account) do
+      true -> Agent.get(account, fn balance -> balance end)
+      false -> {:error, :account_closed}
+    end
   end
 
   @doc """
@@ -34,6 +41,11 @@ defmodule BankAccount do
   """
   @spec deposit(account, integer) :: :ok | {:error, :account_closed | :amount_must_be_positive}
   def deposit(account, amount) do
+    case {Process.alive?(account), amount > 0} do
+      {false, _} -> {:error, :account_closed}
+      {_, false} -> {:error, :amount_must_be_positive}
+      {true, true} -> Agent.get_and_update(account, fn balance -> {:ok, balance + amount} end)
+    end
   end
 
   @doc """
@@ -42,5 +54,20 @@ defmodule BankAccount do
   @spec withdraw(account, integer) ::
           :ok | {:error, :account_closed | :amount_must_be_positive | :not_enough_balance}
   def withdraw(account, amount) do
+    case {Process.alive?(account), amount > 0} do
+      {false, _} ->
+        {:error, :account_closed}
+
+      {_, false} ->
+        {:error, :amount_must_be_positive}
+
+      {true, true} ->
+        Agent.get_and_update(account, fn balance ->
+          cond do
+            balance < amount -> {{:error, :not_enough_balance}, balance}
+            true -> {:ok, balance - amount}
+          end
+        end)
+    end
   end
 end
