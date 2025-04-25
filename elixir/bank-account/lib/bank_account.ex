@@ -41,8 +41,7 @@ defmodule BankAccount do
   """
   @spec deposit(account, integer) :: :ok | {:error, :account_closed | :amount_must_be_positive}
   def deposit(account, amount) do
-    with true <- Process.alive?(account) || {:error, :account_closed},
-         true <- amount > 0 || {:error, :amount_must_be_positive} do
+    with :ok <- validate_transaction(account, amount) do
       Agent.get_and_update(account, fn balance -> {:ok, balance + amount} end)
     end
   end
@@ -53,14 +52,20 @@ defmodule BankAccount do
   @spec withdraw(account, integer) ::
           :ok | {:error, :account_closed | :amount_must_be_positive | :not_enough_balance}
   def withdraw(account, amount) do
-    with true <- Process.alive?(account) || {:error, :account_closed},
-         true <- amount > 0 || {:error, :amount_must_be_positive} do
+    with :ok <- validate_transaction(account, amount) do
       Agent.get_and_update(account, fn balance ->
         cond do
           balance < amount -> {{:error, :not_enough_balance}, balance}
           true -> {:ok, balance - amount}
         end
       end)
+    end
+  end
+
+  defp validate_transaction(account, amount) do
+    with true <- Process.alive?(account) || {:error, :account_closed},
+         true <- amount > 0 || {:error, :amount_must_be_positive} do
+      :ok
     end
   end
 end
