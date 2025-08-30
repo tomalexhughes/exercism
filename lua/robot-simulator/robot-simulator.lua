@@ -1,3 +1,6 @@
+Robot = {}
+Robot.__index = Robot
+
 local function advance(robot)
 	if robot.heading == "north" then
 		robot.y = robot.y + 1
@@ -39,14 +42,19 @@ local function handle_command(robot, command)
 	end
 end
 
-return function(config)
-	local robot = config
-
-	function robot:move(command_string)
-		for command in string.gmatch(command_string, ".") do
-			handle_command(robot, command)
-		end
+function Robot:move(command_string)
+	for command in string.gmatch(command_string, ".") do
+		handle_command(self, command)
 	end
+end
+
+return function(config)
+	local robot = {
+		x = config.x,
+		y = config.y,
+		heading = config.heading,
+	}
+	setmetatable(robot, Robot)
 
 	return robot
 end
